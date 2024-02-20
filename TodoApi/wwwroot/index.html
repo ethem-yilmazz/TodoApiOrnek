@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hava Durumu</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <h1 class="text-center mb-2" style="color:red">5 Günlük Hava Durumu</h1>
+    <table class="table m-5 border border-5">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Sicaklik</th>
+                <th>Aciklama</th>
+            </tr>
+        </thead>
+        <tbody id="havaDurumu">
+        </tbody>
+
+    </table>
+
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        fetch("/api/HavaDurumu")
+            .then(res => res.json())
+            .then(data => {
+                const tablo = document.getElementById("havaDurumu");
+                data.forEach(havaDurumu => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                                    <td>${havaDurumu.tarih}</td>
+                                    <td>${havaDurumu.sicaklik}°C</td>
+                                    <td>${havaDurumu.aciklama}</td>
+                                   `;
+                    tablo.appendChild(tr);
+                })
+            });
+    </script>
+</body>
+</html>
