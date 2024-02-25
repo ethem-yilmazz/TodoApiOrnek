@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(s=> s.AddDefaultPolicy(p=>p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
 builder.Services.AddDbContext<TodoContext>(builder => builder.UseInMemoryDatabase("TodoList"));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,6 +28,8 @@ app.UseDefaultFiles();
 
 //Static dosyalarýn umuma açýlmasý
 app.UseStaticFiles();
+
+app.UseCors();
 
 app.UseAuthorization();
 
